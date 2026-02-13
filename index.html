@@ -5,9 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body style="margin:0;">
+<body style="margin:0; overflow:hidden; background:black;">
 
-  <img src="foto.jpg" style="width:100vw;height:100vh;object-fit:contain;display:block;background:black;">
+  <!-- Fondo relleno -->
+  <div style="
+    position:fixed;
+    inset:0;
+    background-image:url('foto.jpg');
+    background-size:cover;
+    background-position:center;
+    filter:blur(20px) brightness(0.7);
+    transform:scale(1.2);
+  "></div>
+
+  <!-- Foto completa sin recorte -->
+  <img src="foto.jpg" style="
+    position:fixed;
+    inset:0;
+    margin:auto;
+    width:100vw;
+    height:100vh;
+    object-fit:contain;
+    display:block;
+  ">
 
   <audio id="audio" loop>
     <source src="musica.mp3" type="audio/mpeg">
@@ -16,9 +36,7 @@
   <script>
     const audio = document.getElementById("audio");
 
-    // intenta sonar apenas carga
     audio.play().catch(() => {
-      // si el navegador lo bloquea, suena al primer click
       document.addEventListener("click", () => {
         audio.play();
       }, { once: true });
@@ -27,4 +45,3 @@
 
 </body>
 </html>
-
