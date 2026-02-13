@@ -7,8 +7,8 @@
 
 <body style="margin:0; overflow:hidden; background:black;">
 
-  <!-- Imagen (oculta al inicio) -->
-  <img id="foto" src="foto.jpg" style="
+  <!-- Imagen final (oculta al inicio) -->
+  <img id="fotoFinal" src="foto.jpg" style="
     position:fixed;
     inset:0;
     width:100vw;
@@ -20,7 +20,7 @@
     background:black;
   ">
 
-  <!-- Pantalla inicial -->
+  <!-- Intro: ojo en el centro -->
   <div id="intro" style="
     position:fixed;
     inset:0;
@@ -28,15 +28,28 @@
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    color:white;
-    font-family:Arial, sans-serif;
     user-select:none;
     cursor:pointer;
+    background:black;
     transition:opacity 0.8s ease;
   ">
 
-    <div style="font-size:90px; line-height:1;">🌸</div>
-    <div style="margin-top:10px; font-size:18px;">Touch the flower</div>
+    <!-- Ojo -->
+    <img id="ojo" src="ojo_cerrado.png" style="
+      width:160px;
+      height:auto;
+      display:block;
+    ">
+
+    <!-- Texto -->
+    <div id="texto" style="
+      margin-top:14px;
+      font-family:'Times New Roman', Times, serif;
+      font-size:20px;
+      color:white;
+      opacity:0;
+      transition:opacity 0.2s ease;
+    ">wake up</div>
 
   </div>
 
@@ -47,14 +60,30 @@
 
   <script>
     const intro = document.getElementById("intro");
-    const foto = document.getElementById("foto");
+    const fotoFinal = document.getElementById("fotoFinal");
     const audio = document.getElementById("audio");
 
+    const ojo = document.getElementById("ojo");
+    const texto = document.getElementById("texto");
+
+    // Hover: ojo abierto + mostrar texto
+    intro.addEventListener("mouseenter", () => {
+      ojo.src = "ojo_abierto.png";
+      texto.style.opacity = "1";
+    });
+
+    // Sale el mouse: ojo cerrado + ocultar texto
+    intro.addEventListener("mouseleave", () => {
+      ojo.src = "ojo_cerrado.png";
+      texto.style.opacity = "0";
+    });
+
+    // Click: reproducir música + transición a imagen final
     intro.addEventListener("click", () => {
       audio.play();
 
       intro.style.opacity = "0";
-      foto.style.opacity = "1";
+      fotoFinal.style.opacity = "1";
 
       setTimeout(() => {
         intro.style.display = "none";
