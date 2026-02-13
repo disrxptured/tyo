@@ -7,7 +7,20 @@
 
 <body style="margin:0; overflow:hidden; background:black;">
 
-  <!-- Imagen final (oculta al inicio) -->
+  <!-- Fondo blur (imagen final) -->
+  <div id="fondoBlur" style="
+    position:fixed;
+    inset:0;
+    background-image:url('foto.jpg');
+    background-size:cover;
+    background-position:center;
+    filter:blur(22px) brightness(0.7);
+    transform:scale(1.2);
+    opacity:0;
+    transition:opacity 1s ease;
+  "></div>
+
+  <!-- Imagen final completa -->
   <img id="fotoFinal" src="foto.jpg" style="
     position:fixed;
     inset:0;
@@ -17,7 +30,6 @@
     display:block;
     opacity:0;
     transition:opacity 1s ease;
-    background:black;
   ">
 
   <!-- Intro: ojo en el centro -->
@@ -32,20 +44,22 @@
     cursor:pointer;
     background:black;
     transition:opacity 0.8s ease;
+    z-index:5;
   ">
 
     <!-- Ojo -->
     <img id="ojo" src="ojo_cerrado.png" style="
-      width:160px;
+      width:420px;
+      max-width:90vw;
       height:auto;
       display:block;
     ">
 
-    <!-- Texto -->
+    <!-- Texto cerca del ojo -->
     <div id="texto" style="
-      margin-top:14px;
+      margin-top:-10px;
       font-family:'Times New Roman', Times, serif;
-      font-size:20px;
+      font-size:26px;
       color:white;
       opacity:0;
       transition:opacity 0.2s ease;
@@ -60,6 +74,7 @@
 
   <script>
     const intro = document.getElementById("intro");
+    const fondoBlur = document.getElementById("fondoBlur");
     const fotoFinal = document.getElementById("fotoFinal");
     const audio = document.getElementById("audio");
 
@@ -78,11 +93,13 @@
       texto.style.opacity = "0";
     });
 
-    // Click: reproducir música + transición a imagen final
+    // Click: música + transición a imagen final
     intro.addEventListener("click", () => {
       audio.play();
 
       intro.style.opacity = "0";
+
+      fondoBlur.style.opacity = "1";
       fotoFinal.style.opacity = "1";
 
       setTimeout(() => {
