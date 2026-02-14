@@ -41,7 +41,6 @@
     justify-content:center;
     align-items:center;
     user-select:none;
-    cursor:pointer;
     background:black;
     transition:opacity 0.8s ease;
     z-index:5;
@@ -53,6 +52,7 @@
       max-width:90vw;
       height:auto;
       display:block;
+      cursor:pointer;
     ">
 
     <!-- Texto cerca del ojo -->
@@ -63,6 +63,7 @@
       color:white;
       opacity:0;
       transition:opacity 0.2s ease;
+      pointer-events:none;
     ">wake up</div>
 
   </div>
@@ -81,14 +82,13 @@
     const ojo = document.getElementById("ojo");
     const texto = document.getElementById("texto");
 
-    // Hover: ojo abierto + mostrar texto
-    intro.addEventListener("mouseenter", () => {
+    // Hover SOLO en el ojo
+    ojo.addEventListener("mouseenter", () => {
       ojo.src = "ojo_abierto.png";
       texto.style.opacity = "1";
     });
 
-    // Sale el mouse: ojo cerrado + ocultar texto
-    intro.addEventListener("mouseleave", () => {
+    ojo.addEventListener("mouseleave", () => {
       ojo.src = "ojo_cerrado.png";
       texto.style.opacity = "0";
     });
@@ -110,4 +110,3 @@
 
 </body>
 </html>
-
