@@ -7,13 +7,25 @@
 
 <body style="margin:0; overflow:hidden; background:black;">
 
-  <!-- Imagen final (pantalla completa, sin bordes) -->
+  <!-- Fondo relleno (no se recorta la imagen principal) -->
+  <div id="fondo" style="
+    position:fixed;
+    inset:0;
+    background-image:url('foto.jpg');
+    background-size:cover;
+    background-position:center;
+    filter:brightness(0.6);
+    opacity:0;
+    transition:opacity 1s ease;
+  "></div>
+
+  <!-- Imagen final COMPLETA (sin recorte) -->
   <img id="fotoFinal" src="foto.jpg" style="
     position:fixed;
     inset:0;
     width:100vw;
     height:100vh;
-    object-fit:cover;
+    object-fit:contain;
     display:block;
     opacity:0;
     transition:opacity 1s ease;
@@ -33,7 +45,6 @@
     z-index:5;
   ">
 
-    <!-- Ojo -->
     <img id="ojo" src="ojo_cerrado.png" style="
       width:750px;
       max-width:90vw;
@@ -42,7 +53,6 @@
       cursor:pointer;
     ">
 
-    <!-- Texto -->
     <div id="texto" style="
       margin-top:-10px;
       font-family:'Times New Roman', Times, serif;
@@ -62,6 +72,7 @@
 
   <script>
     const intro = document.getElementById("intro");
+    const fondo = document.getElementById("fondo");
     const fotoFinal = document.getElementById("fotoFinal");
     const audio = document.getElementById("audio");
 
@@ -84,13 +95,9 @@
       audio.play();
 
       intro.style.opacity = "0";
+
+      fondo.style.opacity = "1";
       fotoFinal.style.opacity = "1";
 
       setTimeout(() => {
         intro.style.display = "none";
-      }, 900);
-    });
-  </script>
-
-</body>
-</html>
