@@ -7,6 +7,32 @@
 
 <body style="margin:0; overflow:hidden; background:black;">
 
+  <!-- Fondo blur (imagen final) -->
+  <div id="fondoBlur" style="
+    position:fixed;
+    inset:0;
+    background-image:url('foto.jpg');
+    background-size:cover;
+    background-position:center;
+    filter:blur(22px) brightness(0.7);
+    transform:scale(1.2);
+    opacity:0;
+    transition:opacity 1s ease;
+  "></div>
+
+  <!-- Imagen final completa -->
+  <img id="fotoFinal" src="foto.jpg" style="
+    position:fixed;
+    inset:0;
+    width:100vw;
+    height:100vh;
+    object-fit:contain;
+    display:block;
+    opacity:0;
+    transition:opacity 1s ease;
+  ">
+
+  <!-- Intro: ojo en el centro -->
   <div id="intro" style="
     position:fixed;
     inset:0;
@@ -17,26 +43,19 @@
     user-select:none;
     background:black;
     transition:opacity 0.8s ease;
+    z-index:5;
   ">
 
+    <!-- Ojo -->
     <img id="ojo" src="ojo_cerrado.png" style="
       width:750px;
       max-width:90vw;
       height:auto;
       display:block;
       cursor:pointer;
-    " onerror="this.style.display='none'; document.getElementById('fallback').style.display='block';">
-
-    <div id="fallback" style="
-      display:none;
-      color:white;
-      font-family:'Times New Roman', Times, serif;
-      font-size:22px;
-      opacity:0.7;
     ">
-      (No se encontró el ojo_cerrado.png)
-    </div>
 
+    <!-- Texto cerca del ojo -->
     <div id="texto" style="
       margin-top:-10px;
       font-family:'Times New Roman', Times, serif;
@@ -49,29 +68,21 @@
 
   </div>
 
-  <img id="fotoFinal" src="foto.jpg" style="
-    position:fixed;
-    inset:0;
-    width:100vw;
-    height:100vh;
-    object-fit:cover;
-    display:block;
-    opacity:0;
-    transition:opacity 1s ease;
-  ">
-
+  <!-- Música -->
   <audio id="audio" loop>
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     const intro = document.getElementById("intro");
+    const fondoBlur = document.getElementById("fondoBlur");
     const fotoFinal = document.getElementById("fotoFinal");
     const audio = document.getElementById("audio");
 
     const ojo = document.getElementById("ojo");
     const texto = document.getElementById("texto");
 
+    // Hover SOLO en el ojo
     ojo.addEventListener("mouseenter", () => {
       ojo.src = "ojo_abierto.png";
       texto.style.opacity = "1";
@@ -82,10 +93,13 @@
       texto.style.opacity = "0";
     });
 
+    // Click: música + transición a imagen final
     intro.addEventListener("click", () => {
       audio.play();
 
       intro.style.opacity = "0";
+
+      fondoBlur.style.opacity = "1";
       fotoFinal.style.opacity = "1";
 
       setTimeout(() => {
