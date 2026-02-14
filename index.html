@@ -7,7 +7,7 @@
 
 <body style="margin:0; overflow:hidden; background:black;">
 
-  <!-- Fondo relleno (no se recorta la imagen principal) -->
+  <!-- Fondo relleno -->
   <div id="fondo" style="
     position:fixed;
     inset:0;
@@ -17,9 +17,10 @@
     filter:brightness(0.6);
     opacity:0;
     transition:opacity 1s ease;
+    z-index:1;
   "></div>
 
-  <!-- Imagen final COMPLETA (sin recorte) -->
+  <!-- Imagen final COMPLETA -->
   <img id="fotoFinal" src="foto.jpg" style="
     position:fixed;
     inset:0;
@@ -29,6 +30,7 @@
     display:block;
     opacity:0;
     transition:opacity 1s ease;
+    z-index:2;
   ">
 
   <!-- Intro: ojo en el centro -->
@@ -40,64 +42,3 @@
     justify-content:center;
     align-items:center;
     user-select:none;
-    background:black;
-    transition:opacity 0.8s ease;
-    z-index:5;
-  ">
-
-    <img id="ojo" src="ojo_cerrado.png" style="
-      width:750px;
-      max-width:90vw;
-      height:auto;
-      display:block;
-      cursor:pointer;
-    ">
-
-    <div id="texto" style="
-      margin-top:-10px;
-      font-family:'Times New Roman', Times, serif;
-      font-size:26px;
-      color:white;
-      opacity:0;
-      transition:opacity 0.2s ease;
-      pointer-events:none;
-    ">wake up</div>
-
-  </div>
-
-  <!-- Música -->
-  <audio id="audio" loop>
-    <source src="musica.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    const intro = document.getElementById("intro");
-    const fondo = document.getElementById("fondo");
-    const fotoFinal = document.getElementById("fotoFinal");
-    const audio = document.getElementById("audio");
-
-    const ojo = document.getElementById("ojo");
-    const texto = document.getElementById("texto");
-
-    // Hover SOLO en el ojo
-    ojo.addEventListener("mouseenter", () => {
-      ojo.src = "ojo_abierto.png";
-      texto.style.opacity = "1";
-    });
-
-    ojo.addEventListener("mouseleave", () => {
-      ojo.src = "ojo_cerrado.png";
-      texto.style.opacity = "0";
-    });
-
-    // Click: música + transición a imagen final
-    intro.addEventListener("click", () => {
-      audio.play();
-
-      intro.style.opacity = "0";
-
-      fondo.style.opacity = "1";
-      fotoFinal.style.opacity = "1";
-
-      setTimeout(() => {
-        intro.style.display = "none";
