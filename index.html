@@ -7,26 +7,13 @@
 
 <body style="margin:0; overflow:hidden; background:black;">
 
-  <!-- Fondo blur (imagen final) -->
-  <div id="fondoBlur" style="
-    position:fixed;
-    inset:0;
-    background-image:url('foto.jpg');
-    background-size:cover;
-    background-position:center;
-    filter:blur(22px) brightness(0.7);
-    transform:scale(1.2);
-    opacity:0;
-    transition:opacity 1s ease;
-  "></div>
-
-  <!-- Imagen final completa -->
+  <!-- Imagen final (pantalla completa, sin bordes) -->
   <img id="fotoFinal" src="foto.jpg" style="
     position:fixed;
     inset:0;
     width:100vw;
     height:100vh;
-    object-fit:contain;
+    object-fit:cover;
     display:block;
     opacity:0;
     transition:opacity 1s ease;
@@ -55,7 +42,7 @@
       cursor:pointer;
     ">
 
-    <!-- Texto cerca del ojo -->
+    <!-- Texto -->
     <div id="texto" style="
       margin-top:-10px;
       font-family:'Times New Roman', Times, serif;
@@ -75,7 +62,6 @@
 
   <script>
     const intro = document.getElementById("intro");
-    const fondoBlur = document.getElementById("fondoBlur");
     const fotoFinal = document.getElementById("fotoFinal");
     const audio = document.getElementById("audio");
 
@@ -98,8 +84,6 @@
       audio.play();
 
       intro.style.opacity = "0";
-
-      fondoBlur.style.opacity = "1";
       fotoFinal.style.opacity = "1";
 
       setTimeout(() => {
